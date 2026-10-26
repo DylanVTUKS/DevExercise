@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\IoT_Devices.Web.props" />
-</Project>
