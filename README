@@ -9,7 +9,7 @@ ASP.NET Core MVC + EF Core 8 web app and SQL Server database for managing groupe
 1. Run 1_schema.sql then 2_seed.sqal. The schema can be re run and drops the tables. 
 2. Check connection string in src/IOT_Devices.Web/appsettings.json
  - should be ("Default": "Server=localhost\\SQLEXPRESS;Database=IOT_Devices;Trusted_Connection=True;TrustServerCertificate=True").
-3. Run dotnet run in cd src/IoT_Devices.Web
+3. Run dotnet build and then dotnet run in cd src/IoT_Devices.Web
 
 ## Features
 
