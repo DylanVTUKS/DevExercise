@@ -1,0 +1,37 @@
+@model List<IOT_Devices.Models.Firmware>
+@{
+    ViewData["Title"] = "Firmware";
+}
+
+<h1>Firmware</h1>
+
+<a asp-action="Create" class="btn btn-primary mb-3">New firmware</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Device type</th>
+            <th>Version</th>
+            <th>Released</th>
+            <th>Notes</th>
+            <th>Devices</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var f in Model)
+        {
+            <tr>
+                <td>@f.DeviceType?.Name</td>
+                <td>@f.Version</td>
+                <td>@f.ReleaseDate.ToString("yyyy-MM-dd")</td>
+                <td>@f.Notes</td>
+                <td>@f.Devices.Count</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@f.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@f.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

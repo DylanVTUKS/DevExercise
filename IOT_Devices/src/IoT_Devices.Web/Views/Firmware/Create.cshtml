@@ -1,0 +1,43 @@
+@model IOT_Devices.Models.Firmware
+@{
+    ViewData["Title"] = "New firmware";
+}
+
+<h1>New firmware</h1>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="DeviceTypeId" class="form-label">Device type</label>
+        <select asp-for="DeviceTypeId" asp-items="(SelectList)ViewBag.TypeOptions" class="form-select">
+            <option value="">-- choose --</option>
+        </select>
+        <span asp-validation-for="DeviceTypeId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Version" class="form-label"></label>
+        <input asp-for="Version" class="form-control" placeholder="e.g. 2.1.0" />
+        <span asp-validation-for="Version" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ReleaseDate" class="form-label">Release date</label>
+        <input asp-for="ReleaseDate" type="date" class="form-control" />
+        <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Notes" class="form-label"></label>
+        <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Notes" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-action="Index" class="btn btn-link">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

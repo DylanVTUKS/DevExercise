@@ -1,0 +1,28 @@
+@model IOT_Devices.Models.DeviceGroup
+@{
+    ViewData["Title"] = "Delete group";
+    bool inUse = Model.Children.Any() || Model.Devices.Any();
+}
+
+<h1>Delete group</h1>
+
+<p>Group: <strong>@Model.Name</strong></p>
+
+@if (inUse)
+{
+    <div class="alert alert-warning">
+        This group cannot be deleted 
+        Move sub groups or devices.    
+        Move or remove them first.
+    </div>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+}
+else
+{
+    <p>Are you sure you want to delete this group?</p>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-action="Index" class="btn btn-link">Cancel</a>
+    </form>
+}

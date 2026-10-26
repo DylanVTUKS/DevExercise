@@ -1,0 +1,39 @@
+# IoT Device Management
+
+ASP.NET Core MVC + EF Core 8 web app and SQL Server database for managing grouped IoT devices and versioned firmware.
+
+## Setup
+
+**Prerequisites:** .NET 8 SDK, SQL Server 2022 Express , mssql extension 
+
+1. Run 1_schema.sql then 2_seed.sqal. The schema can be re run and drops the tables. 
+2. Check connection string in src/IOT_Devices.Web/appsettings.json
+ - should be ("Default": "Server=localhost\\SQLEXPRESS;Database=IOT_Devices;Trusted_Connection=True;TrustServerCertificate=True").
+3. Run dotnet run in cd src/IoT_Devices.Web
+
+## Features
+
+- Groups, nested, create, edit, move and delete. The device counts roll up to the main group. 
+- Firmware, create, edit and delete. Each version belongs to one device type. 
+- Devices, list, create, edit. Firmware linked to the device type. 
+
+## Assumptions
+
+One group per device, firmware verion can be free text, devices does not have a delete. 
+
+## Checks I added
+
+- Group cycles. The DB blocks a group being its own parent.
+- Firmware mismatch, forms only offer the matching firmware. 
+- Groups that are not empty cannot be deleted, cant have sub group or devices.
+- Cannot have duplicate group names under the same parent, firmware version for the same device type, and serial numbers for devices. 
+
+## If this were deployed/what I would change
+
+- Authentication/authorization, HTTPS , secrets in a vault. 
+- Composite foriegn key, firmwate/type rule stays in the DB.
+- Pagination, search and sort on lists.
+- Migrations, backup,
+- Unit tests.
+
+

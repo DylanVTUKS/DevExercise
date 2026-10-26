@@ -1,0 +1,14 @@
+@model List<IOT_Devices.Models.DeviceGroup>
+@{
+    ViewData["Title"] = "Groups";
+}
+
+<h1>Groups</h1>
+<a asp-action="Create" class="btn btn-primary mb-3">New group</a>
+
+<ul class="list-unstyled">
+    @foreach (var group in Model)
+    {
+        <partial name="_GroupNode" model="group" />
+    }
+</ul>

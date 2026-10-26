@@ -1,0 +1,39 @@
+@model IOT_Devices.Models.DeviceGroup
+
+<li class="mb-2">
+    <strong>@Model.Name</strong>
+    <span class="badge bg-secondary">
+        @Model.TotalDeviceCount @(Model.TotalDeviceCount == 1 ? "device" : "devices")
+    </span>
+    @if (Model.TotalDeviceCount != Model.Devices.Count)
+    {
+        <span class="text-muted small">(@(Model.TotalDeviceCount - Model.Devices.Count) from sub groups)</span>
+    }
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="ms-2">Edit</a>
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="ms-1">Delete</a>
+
+    @if (Model.Devices.Any())
+    {
+        <ul class="list-unstyled ms-3 mb-1 small">
+            @foreach (var device in Model.Devices.OrderBy(d => d.Name))
+            {
+                <li>
+                    <span aria-hidden="true">&bull;</span>
+                    @device.Name
+                    <span class="text-muted">(@device.SerialNumber, firmware @device.Firmware?.Version)</span>
+                    <a asp-controller="Devices" asp-action="Edit" asp-route-id="@device.Id" class="ms-1">Edit</a>
+                </li>
+            }
+        </ul>
+    }
+
+    @if (Model.Children.Any())
+    {
+        <ul>
+            @foreach (var child in Model.Children.OrderBy(c => c.Name))
+            {
+                <partial name="_GroupNode" model="child" />
+            }
+        </ul>
+    }
+</li>

@@ -1,0 +1,35 @@
+@model List<IOT_Devices.Models.Device>
+@{
+    ViewData["Title"] = "Devices";
+    var groupPaths = (Dictionary<int, string>)ViewBag.GroupPaths;
+}
+
+<h1>Devices</h1>
+
+<a asp-action="Create" class="btn btn-primary mb-3">New device</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Serial</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Firmware</th>
+            <th>Group</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var d in Model)
+        {
+            <tr>
+                <td>@d.SerialNumber</td>
+                <td>@d.Name</td>
+                <td>@d.DeviceType?.Name</td>
+                <td>@d.Firmware?.Version</td>
+                <td>@(d.GroupId != null ? groupPaths[d.GroupId.Value] : "-")</td>
+                <td><a asp-action="Edit" asp-route-id="@d.Id">Edit</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
